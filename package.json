@@ -1,0 +1,12 @@
+{
+  "name": "async-data-toolkit",
+  "version": "1.0.0",
+  "description": "Utility toolkit for async programming labs",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node demo/index.js"
+  },
+  "author": "Denys Stepanenko",
+  "license": "MIT"
+}
