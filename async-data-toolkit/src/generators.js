@@ -10,3 +10,11 @@ export function* fibonacciGenerator() {
         b = temp + b;
     }
 }
+
+export function iterateWithTimeout(iterator, seconds) {
+    const endTime = Date.now() + seconds * 1000;
+
+    while (Date.now() < endTime) {
+        console.log(iterator.next().value);
+    }
+}
