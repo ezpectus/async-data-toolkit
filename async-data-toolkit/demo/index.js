@@ -4,11 +4,15 @@ import {
     randomNumberGenerator
 } from "../src/generators.js";
 
-console.log("Fibonacci:");
-const fib = fibonacciGenerator();
+async function run() {
+    console.log("Fibonacci:");
 
-iterateWithTimeout(fib, 1);
-console.log("Random:");
+    const fib = fibonacciGenerator();
+    await iterateWithTimeout(fib, 2);
+    console.log("Random:");
 
-const random = randomNumberGenerator();
-iterateWithTimeout(random, 1);
+    const random = randomNumberGenerator();
+    await iterateWithTimeout(random, 2);
+}
+
+run();

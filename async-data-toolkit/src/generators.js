@@ -1,3 +1,7 @@
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export function* fibonacciGenerator() {
     let a = 0;
     let b = 1;
@@ -11,11 +15,13 @@ export function* fibonacciGenerator() {
     }
 }
 
-export function iterateWithTimeout(iterator, seconds) {
+export async function iterateWithTimeout(iterator, seconds) {
     const endTime = Date.now() + seconds * 1000;
 
     while (Date.now() < endTime) {
         console.log(iterator.next().value);
+
+        await sleep(300);
     }
 }
 
