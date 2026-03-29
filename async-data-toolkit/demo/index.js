@@ -1,7 +1,8 @@
 import {
     fibonacciGenerator,
     iterateWithTimeout,
-    randomNumberGenerator
+    randomNumberGenerator,
+    roundRobinGenerator
 } from "../src/generators.js";
 
 async function run() {
@@ -14,5 +15,14 @@ async function run() {
     const random = randomNumberGenerator();
     await iterateWithTimeout(random, 2);
 }
+
+console.log("Round Robin:");
+const roundRobin = roundRobinGenerator([
+    "A",
+    "B",
+    "C"
+]);
+
+await iterateWithTimeout(roundRobin, 2);
 
 run();

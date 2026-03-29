@@ -30,3 +30,17 @@ export function* randomNumberGenerator(min = 1, max = 100) {
         yield Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }
+
+export function* roundRobinGenerator(items) {
+    let index = 0;
+
+    while (true) {
+        yield items[index];
+
+        index++;
+
+        if (index >= items.length) {
+            index = 0;
+        }
+    }
+}
