@@ -19,8 +19,8 @@ export async function iterateWithTimeout(iterator, seconds) {
     const endTime = Date.now() + seconds * 1000;
 
     while (Date.now() < endTime) {
-        const value = iterator.next().value;
-        console.log("Generated:", value);
+        const result = iterator.next();
+        console.log("Generated:", result.value);
 
         await sleep(300);
     }
