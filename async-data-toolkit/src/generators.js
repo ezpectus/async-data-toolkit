@@ -15,17 +15,6 @@ export function* fibonacciGenerator() {
     }
 }
 
-export async function iterateWithTimeout(iterator, seconds) {
-    const endTime = Date.now() + seconds * 1000;
-
-    while (Date.now() < endTime) {
-        const result = iterator.next();
-        console.log("Generated:", result.value);
-
-        await sleep(300);
-    }
-}
-
 export function* randomNumberGenerator(min = 1, max = 100) {
     while (true) {
         yield Math.floor(Math.random() * (max - min + 1)) + min;
@@ -52,5 +41,27 @@ export function* counterGenerator(start = 0) {
     while (true) {
         yield current;
         current++;
+    }
+}
+
+export async function iterateWithTimeout(iterator, seconds) {
+    const endTime = Date.now() + seconds * 1000;
+
+    let total = 0;
+    let count = 0;
+
+    while (Date.now() < endTime) {
+        const result = iterator.next();
+
+        console.log("Generated:", result.value);
+
+        if (typeof result.value === "number") {
+            total += result.value;
+            count++;
+
+            console.log("Average:", total / count);
+        }
+
+        await sleep(300);
     }
 }
