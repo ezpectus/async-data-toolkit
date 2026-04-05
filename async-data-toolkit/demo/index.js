@@ -5,6 +5,7 @@ import {
     roundRobinGenerator,
     counterGenerator
 } from "../src/generators.js";
+import { memoize } from "../src/memoize.js";
 
 async function run() {
     console.log("Fibonacci:");
@@ -28,5 +29,15 @@ async function run() {
     const counter = counterGenerator(10);
     await iterateWithTimeout(counter, 2);
 }
+
+function slowSum(a, b) {
+    for (let i = 0; i < 100000000; i++) {}
+
+    return a + b;
+}
+
+const memoizedSum = memoize(slowSum);
+console.log(memoizedSum(2, 3));
+console.log(memoizedSum(2, 3));
 
 run();
