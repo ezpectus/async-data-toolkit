@@ -1,4 +1,4 @@
-export function memoize(fn) {
+export function memoize(fn, maxSize = Infinity) {
     const cache = new Map();
 
     return function (...args) {
@@ -12,8 +12,14 @@ export function memoize(fn) {
 
         console.log("Calculating result");
         const result = fn(...args);
-        cache.set(key, result);
 
+        if (cache.size >= maxSize) {
+            const firstKey = cache.keys().next().value;
+
+            cache.delete(firstKey);
+        }
+
+        cache.set(key, result);
         return result;
     };
 }
