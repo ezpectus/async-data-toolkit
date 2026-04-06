@@ -13,13 +13,14 @@ export function memoize(fn, maxSize = Infinity) {
         console.log("Calculating result");
         const result = fn(...args);
 
-        if (cache.size >= maxSize) {
+        cache.set(key, result);
+
+        if (cache.size > maxSize) {
             const firstKey = cache.keys().next().value;
 
             cache.delete(firstKey);
         }
 
-        cache.set(key, result);
         return result;
     };
 }
