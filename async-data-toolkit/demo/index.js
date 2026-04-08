@@ -39,5 +39,6 @@ function slowSum(a, b) {
 const memoizedSum = memoize(slowSum, 2);
 console.log(memoizedSum(2, 3));
 console.log(memoizedSum(2, 3));
+memoizedSum.clearCache();
 
 run();

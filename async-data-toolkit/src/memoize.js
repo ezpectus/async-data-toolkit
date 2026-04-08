@@ -1,7 +1,7 @@
 export function memoize(fn, maxSize = Infinity) {
     const cache = new Map();
 
-    return function (...args) {
+    const memoized = function (...args) {
         const key = JSON.stringify(args);
 
         if (cache.has(key)) {
@@ -23,4 +23,12 @@ export function memoize(fn, maxSize = Infinity) {
 
         return result;
     };
+
+    memoized.clearCache = function () {
+        cache.clear();
+
+        console.log("Cache cleared");
+    };
+
+    return memoized;
 }
