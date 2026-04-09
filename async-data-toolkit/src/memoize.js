@@ -7,12 +7,16 @@ export function memoize(fn, maxSize = Infinity) {
         if (cache.has(key)) {
             console.log("Getting value from cache");
 
-            return cache.get(key);
+            const value = cache.get(key);
+
+            cache.delete(key);
+            cache.set(key, value);
+
+            return value;
         }
 
         console.log("Calculating result");
         const result = fn(...args);
-
         cache.set(key, result);
 
         if (cache.size > maxSize) {
