@@ -40,5 +40,6 @@ const memoizedSum = memoize(slowSum, 2);
 console.log(memoizedSum(2, 3));
 console.log(memoizedSum(2, 3));
 memoizedSum.clearCache();
+console.log("Cache hits:", memoizedSum.getHits());
 
 run();

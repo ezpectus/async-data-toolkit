@@ -1,11 +1,15 @@
 export function memoize(fn, maxSize = Infinity) {
     const cache = new Map();
 
+    let hits = 0;
+
     const memoized = function (...args) {
         const key = JSON.stringify(args);
 
         if (cache.has(key)) {
             console.log("Getting value from cache");
+
+            hits++;
 
             const value = cache.get(key);
 
@@ -32,6 +36,10 @@ export function memoize(fn, maxSize = Infinity) {
         cache.clear();
 
         console.log("Cache cleared");
+    };
+
+    memoized.getHits = function () {
+        return hits;
     };
 
     return memoized;
