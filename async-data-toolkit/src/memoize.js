@@ -34,7 +34,9 @@ export function memoize(fn, maxSize = Infinity) {
 
     memoized.clearCache = function () {
         cache.clear();
-
+    
+        hits = 0;
+    
         console.log("Cache cleared");
     };
 
