@@ -1,4 +1,9 @@
-export function memoize(fn, maxSize = Infinity, expirationTime = 0) {
+export function memoize(
+    fn,
+    maxSize = Infinity,
+    expirationTime = 0,
+    evictionCallback = null
+) {
     const cache = new Map();
 
     let hits = 0;
@@ -38,7 +43,13 @@ export function memoize(fn, maxSize = Infinity, expirationTime = 0) {
         if (cache.size > maxSize) {
             const firstKey = cache.keys().next().value;
 
+            const deletedValue = cache.get(firstKey);
+
             cache.delete(firstKey);
+
+            if (evictionCallback) {
+                evictionCallback(firstKey, deletedValue);
+            }
         }
 
         return result;

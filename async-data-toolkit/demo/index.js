@@ -36,7 +36,17 @@ function slowSum(a, b) {
     return a + b;
 }
 
-const memoizedSum = memoize(slowSum, 2, 5000);
+function onCacheEviction(key, value) {
+    console.log("Removed from cache:", key);
+}
+
+const memoizedSum = memoize(
+    slowSum,
+    2,
+    5000,
+    onCacheEviction
+);
+
 console.log(memoizedSum(2, 3));
 console.log(memoizedSum(2, 3));
 memoizedSum.clearCache();
