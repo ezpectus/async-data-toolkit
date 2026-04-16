@@ -45,11 +45,11 @@ export function memoize(
 
             const deletedValue = cache.get(firstKey);
 
-            cache.delete(firstKey);
-
             if (evictionCallback) {
-                evictionCallback(firstKey, deletedValue);
+                 evictionCallback(firstKey, deletedValue);
             }
+            
+           cache.delete(firstKey);
         }
 
         return result;
