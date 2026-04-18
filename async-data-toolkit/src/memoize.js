@@ -48,7 +48,7 @@ export function memoize(
             if (evictionCallback) {
                  evictionCallback(firstKey, deletedValue);
             }
-            
+
            cache.delete(firstKey);
         }
 
@@ -67,5 +67,9 @@ export function memoize(
         return hits;
     };
 
+    memoized.getCacheSize = function () {
+        return cache.size;
+    };
+    
     return memoized;
 }
