@@ -6,6 +6,7 @@ import {
     counterGenerator
 } from "../src/generators.js";
 import { memoize } from "../src/memoize.js";
+import { PriorityQueue } from "../src/priorityQueue.js";
 
 async function run() {
     console.log("Fibonacci:");
@@ -52,5 +53,14 @@ console.log(memoizedSum(2, 3));
 memoizedSum.clearCache();
 console.log("Cache hits:", memoizedSum.getHits());
 console.log("Cache size:", memoizedSum.getCacheSize());
+
+const queue = new PriorityQueue();
+
+queue.enqueue("Low", 1);
+queue.enqueue("Medium", 5);
+queue.enqueue("High", 10);
+
+console.log(queue.dequeueHighest());
+console.log(queue.dequeueLowest());
 
 run();
