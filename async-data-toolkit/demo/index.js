@@ -60,6 +60,8 @@ queue.enqueue("Low", 1);
 queue.enqueue("Medium", 5);
 queue.enqueue("High", 10);
 
+console.log(queue.peekHighest());
+console.log(queue.peekLowest());
 console.log(queue.dequeueHighest());
 console.log(queue.dequeueLowest());
 
