@@ -1,12 +1,14 @@
 export class PriorityQueue {
     constructor() {
         this.items = [];
+        this.index = 0;
     }
 
     enqueue(item, priority) {
         this.items.push({
             item,
-            priority
+            priority,
+            index: this.index++
         });
     }
 
@@ -28,6 +30,22 @@ export class PriorityQueue {
         this.items.sort((a, b) => a.priority - b.priority);
 
         return this.items.shift();
+    }
+
+    dequeueOldest() {
+        if (this.items.length === 0) {
+            return null;
+        }
+
+        return this.items.shift();
+    }
+
+    dequeueNewest() {
+        if (this.items.length === 0) {
+            return null;
+        }
+
+        return this.items.pop();
     }
 
     peekHighest() {

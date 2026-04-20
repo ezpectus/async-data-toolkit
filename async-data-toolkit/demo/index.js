@@ -64,5 +64,7 @@ console.log(queue.peekHighest());
 console.log(queue.peekLowest());
 console.log(queue.dequeueHighest());
 console.log(queue.dequeueLowest());
+console.log(queue.dequeueOldest());
+console.log(queue.dequeueNewest());
 
 run();
