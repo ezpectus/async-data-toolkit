@@ -53,9 +53,11 @@ export class PriorityQueue {
             return null;
         }
 
-        this.items.sort((a, b) => b.priority - a.priority);
-
-        return this.items[0];
+        const sorted = [...this.items].sort(
+            (a, b) => b.priority - a.priority
+        );
+        
+        return sorted[0];
     }
 
     peekLowest() {
@@ -63,8 +65,10 @@ export class PriorityQueue {
             return null;
         }
 
-        this.items.sort((a, b) => a.priority - b.priority);
-
-        return this.items[0];
+        const sorted = [...this.items].sort(
+            (a, b) => a.priority - b.priority
+        );
+        
+        return sorted[0];
     }
 }
