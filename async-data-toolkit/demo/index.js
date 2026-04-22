@@ -7,6 +7,7 @@ import {
 } from "../src/generators.js";
 import { memoize } from "../src/memoize.js";
 import { PriorityQueue } from "../src/priorityQueue.js";
+import { asyncMap } from "../src/asyncMap.js";
 
 async function run() {
     console.log("Fibonacci:");
@@ -66,5 +67,13 @@ console.log(queue.dequeueHighest());
 console.log(queue.dequeueLowest());
 console.log(queue.dequeueOldest());
 console.log(queue.dequeueNewest());
+
+asyncMap(
+    [1, 2, 3, 4],
+    number => number * 2,
+    results => {
+        console.log("Async map results:", results);
+    }
+);
 
 run();
