@@ -7,7 +7,10 @@ import {
 } from "../src/generators.js";
 import { memoize } from "../src/memoize.js";
 import { PriorityQueue } from "../src/priorityQueue.js";
-import { asyncMap } from "../src/asyncMap.js";
+import {
+    asyncMap,
+    asyncMapPromise
+} from "../src/asyncMap.js";
 
 async function run() {
     console.log("Fibonacci:");
@@ -75,5 +78,12 @@ asyncMap(
         console.log("Async map results:", results);
     }
 );
+
+asyncMapPromise(
+    [5, 6, 7],
+    number => number + 1
+).then(results => {
+    console.log("Promise map results:", results);
+});
 
 run();
