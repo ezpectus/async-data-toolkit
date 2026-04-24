@@ -86,4 +86,15 @@ asyncMapPromise(
     console.log("Promise map results:", results);
 });
 
+async function testAsyncMap() {
+    const results = await asyncMapPromise(
+        [10, 20, 30],
+        number => number / 2
+    );
+
+    console.log("Async await results:", results);
+}
+
+testAsyncMap();
+
 run();
