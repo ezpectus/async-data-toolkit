@@ -22,8 +22,12 @@ export function asyncMap(array, callback, done) {
     });
 }
 
-export function asyncMapPromise(array, callback) {
-    return new Promise(resolve => {
+export function asyncMapPromise(
+    array,
+    callback,
+    signal = null
+) {
+    return new Promise((resolve, reject) => {
         const results = [];
 
         let completed = 0;
@@ -36,6 +40,12 @@ export function asyncMapPromise(array, callback) {
 
         array.forEach((item, index) => {
             setTimeout(() => {
+                if (signal && signal.aborted) {
+                    reject("Operation aborted");
+
+                    return;
+                }
+
                 results[index] = callback(item);
 
                 completed++;

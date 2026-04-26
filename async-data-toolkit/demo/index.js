@@ -97,4 +97,20 @@ async function testAsyncMap() {
 
 testAsyncMap();
 
+const controller = new AbortController();
+
+asyncMapPromise(
+    [1, 2, 3],
+    number => number * 5,
+    controller.signal
+)
+    .then(results => {
+        console.log(results);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+controller.abort();
+
 run();
