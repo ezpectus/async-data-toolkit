@@ -11,6 +11,7 @@ import {
     asyncMap,
     asyncMapPromise
 } from "../src/asyncMap.js";
+import { processFileStream } from "../src/streamProcessor.js";
 
 async function run() {
     console.log("Fibonacci:");
@@ -112,5 +113,7 @@ asyncMapPromise(
     });
 
 controller.abort();
+
+processFileStream("./demo/data.txt");
 
 run();
