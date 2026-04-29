@@ -13,12 +13,16 @@ export async function processFileStream(path) {
     let wordCount = 0;
 
     for await (const line of reader) {
+        if (line.trim() === "") {
+            continue;
+        }
+    
         console.log("Line:", line);
-
+    
         lineCount++;
-
+    
         const words = line.split(" ");
-
+    
         wordCount += words.length;
     }
 
