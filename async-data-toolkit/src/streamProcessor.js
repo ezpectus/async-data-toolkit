@@ -1,6 +1,10 @@
 import fs from "fs";
 import readline from "readline";
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function processFileStream(path) {
     const stream = fs.createReadStream(path);
 
@@ -16,14 +20,16 @@ export async function processFileStream(path) {
         if (line.trim() === "") {
             continue;
         }
-    
+
         console.log("Line:", line);
-    
+
         lineCount++;
-    
+
         const words = line.split(" ");
-    
+
         wordCount += words.length;
+
+        await sleep(200);
     }
 
     console.log("Total lines:", lineCount);
