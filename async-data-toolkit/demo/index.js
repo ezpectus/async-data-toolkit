@@ -12,6 +12,7 @@ import {
     asyncMapPromise
 } from "../src/asyncMap.js";
 import { processFileStream } from "../src/streamProcessor.js";
+import { MessageSystem } from "../src/events.js";
 
 async function run() {
     console.log("Fibonacci:");
@@ -115,5 +116,13 @@ asyncMapPromise(
 controller.abort();
 
 processFileStream("./demo/data.txt");
+
+const messages = new MessageSystem();
+
+messages.on("message", message => {
+    console.log("Listener 1:", message);
+});
+
+messages.sendMessage("Hello event system");
 
 run();
