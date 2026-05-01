@@ -118,9 +118,16 @@ controller.abort();
 processFileStream("./demo/data.txt");
 
 const messages = new MessageSystem();
-
 messages.on("message", message => {
     console.log("Listener 1:", message);
+});
+
+messages.on("message", message => {
+    console.log("Listener 2:", message.toUpperCase());
+});
+
+messages.on("message", message => {
+    console.log("Listener 3 length:", message.length);
 });
 
 messages.sendMessage("Hello event system");
