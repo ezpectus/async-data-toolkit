@@ -132,4 +132,13 @@ messages.on("message", message => {
 
 messages.sendMessage("Hello event system");
 
+function temporaryListener(message) {
+    console.log("Temporary listener:", message);
+}
+
+messages.on("message", temporaryListener);
+messages.sendMessage("First event");
+messages.off("message", temporaryListener);
+messages.sendMessage("Second event");
+
 run();
