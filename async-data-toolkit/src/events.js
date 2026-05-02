@@ -6,4 +6,10 @@ export class MessageSystem extends EventEmitter {
 
         this.emit("message", message);
     }
+
+    sendNotification(notification) {
+        console.log("Notification:", notification);
+
+        this.emit("notification", notification);
+    }
 }

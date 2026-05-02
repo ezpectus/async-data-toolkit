@@ -141,4 +141,10 @@ messages.sendMessage("First event");
 messages.off("message", temporaryListener);
 messages.sendMessage("Second event");
 
+messages.on("notification", notification => {
+    console.log("Notification listener:", notification);
+});
+
+messages.sendNotification("System update");
+
 run();
