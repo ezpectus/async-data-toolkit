@@ -4,6 +4,8 @@ export class AuthProxy {
     }
 
     async request(url) {
+        console.log("Sending request to:", url);
+
         const response = await fetch(url, {
             headers: {
                 Authorization: this.apiKey
