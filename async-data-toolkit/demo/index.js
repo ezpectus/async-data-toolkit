@@ -13,6 +13,7 @@ import {
 } from "../src/asyncMap.js";
 import { processFileStream } from "../src/streamProcessor.js";
 import { MessageSystem } from "../src/events.js";
+import { AuthProxy } from "../src/authProxy.js";
 
 async function run() {
     console.log("Fibonacci:");
@@ -147,4 +148,11 @@ messages.on("notification", notification => {
 
 messages.sendNotification("System update");
 
+const proxy = new AuthProxy("demo-api-key");
+
+proxy.request("https://jsonplaceholder.typicode.com/todos/1")
+    .then(data => {
+        console.log("Proxy response:", data);
+    });
+    
 run();
