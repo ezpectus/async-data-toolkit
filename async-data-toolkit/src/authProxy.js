@@ -15,11 +15,13 @@ export class AuthProxy {
 
         console.log("Sending request to:", url);
 
-        const response = await fetch(url, {
+        const options = {
             headers: {
                 Authorization: this.apiKey
             }
-        });
+        };
+
+        const response = await fetch(url, options);
 
         return response.json();
     }
