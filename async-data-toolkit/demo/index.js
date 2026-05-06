@@ -14,6 +14,8 @@ import {
 import { processFileStream } from "../src/streamProcessor.js";
 import { MessageSystem } from "../src/events.js";
 import { AuthProxy } from "../src/authProxy.js";
+import { log } from "../src/logger.js";
+
 
 async function run() {
     console.log("Fibonacci:");
@@ -154,5 +156,14 @@ proxy.request("https://jsonplaceholder.typicode.com/todos/1")
     .then(data => {
         console.log("Proxy response:", data);
     });
+
+
+function multiply(a, b) {
+    return a * b;
+ }
     
+const loggedMultiply = log("INFO", multiply);
+    
+console.log(loggedMultiply(4, 5));
+
 run();
