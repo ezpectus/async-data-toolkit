@@ -4,10 +4,16 @@ export function log(level, fn) {
 
         console.log("Arguments:", args);
 
-        const result = fn(...args);
+        try {
+            const result = fn(...args);
 
-        console.log("Result:", result);
+            console.log("Result:", result);
 
-        return result;
+            return result;
+        } catch (error) {
+            console.log("Error:", error.message);
+
+            throw error;
+        }
     };
 }
