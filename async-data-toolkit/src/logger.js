@@ -4,8 +4,14 @@ export function log(level, fn) {
 
         console.log("Arguments:", args);
 
+        const start = Date.now();
+
         try {
             const result = fn(...args);
+
+            const end = Date.now();
+
+            console.log("Execution time:", end - start, "ms");
 
             console.log("Result:", result);
 
