@@ -1,6 +1,8 @@
 export function log(level, fn) {
     return function (...args) {
-        console.log(`[${level}] Function called`);
+        const timestamp = new Date().toISOString();
+
+        console.log(`[${level}]`, timestamp);
 
         console.log("Arguments:", args);
 
