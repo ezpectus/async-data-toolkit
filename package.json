@@ -1,7 +1,7 @@
 {
   "name": "async-data-toolkit",
   "version": "1.0.0",
-  "description": "Utility toolkit for async programming labs",
+  "description": "Toolkit for async programming experiments",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -10,3 +10,5 @@
   "author": "Denys Stepanenko",
   "license": "MIT"
 }
+
+
