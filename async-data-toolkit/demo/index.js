@@ -18,16 +18,16 @@ import { log } from "../src/logger.js";
 
 
 async function run() {
-    console.log("Fibonacci:");
+    console.log("\n=== Fibonacci ===");
 
     const fib = fibonacciGenerator();
     await iterateWithTimeout(fib, 2);
 
-    console.log("Random:");
+    console.log("\n=== Random ===");
     const random = randomNumberGenerator();
     await iterateWithTimeout(random, 2);
 
-    console.log("Round Robin:");
+    console.log("\n=== Round Robin ===");
     const roundRobin = roundRobinGenerator([
         "A",
         "B",
@@ -35,7 +35,7 @@ async function run() {
     ]);
 
     await iterateWithTimeout(roundRobin, 2);
-    console.log("Counter:");
+    cconsole.log("\n=== Counter ===");
     const counter = counterGenerator(10);
     await iterateWithTimeout(counter, 2);
 }
