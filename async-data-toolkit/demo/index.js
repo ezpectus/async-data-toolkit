@@ -154,7 +154,7 @@ const proxy = new AuthProxy("demo-api-key");
 
 proxy.request("https://jsonplaceholder.typicode.com/todos/1")
     .then(data => {
-        console.log("Proxy response:", data);
+        console.log("API response:", data);
     });
 
 
