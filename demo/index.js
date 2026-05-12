@@ -93,10 +93,18 @@ async function processTasksAsync(tasks) {
     const processedTasks =
         await asyncMapPromise(
             tasks,
-            task => ({
-                ...task,
-                completed: true
-            })
+            task => {
+                eventBus.sendMessage(
+                    `Processing task: ${task.type}`
+                );
+
+                return {
+                    ...task,
+                    completed: true,
+                    processedAt:
+                        new Date().toISOString()
+                };
+            }
         );
 
     console.log(
@@ -186,7 +194,9 @@ async function fetchExternalTaskData() {
 function runSystemLogger() {
     console.log("\n=== System Logger ===");
 
-    console.log(loggedMultiply(4, 5));
+    console.log("Execution result:",
+        loggedMultiply(4, 5)
+    );
 }
 
 async function processTaskLogs() {
@@ -208,7 +218,7 @@ async function startTaskProcessingSystem() {
        await processTasksAsync(tasks);
 
     console.log("\n=== Final Processed Tasks ===");
-    
+
     console.log(processedTasks);
 
     await processTaskLogs();
