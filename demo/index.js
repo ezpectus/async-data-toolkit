@@ -202,9 +202,14 @@ async function startTaskProcessingSystem() {
 
     runCachedCalculations();
 
-    processTaskQueue();
+    const tasks = processTaskQueue();
 
-    await processTasksAsync();
+    const processedTasks =
+       await processTasksAsync(tasks);
+
+    console.log("\n=== Final Processed Tasks ===");
+    
+    console.log(processedTasks);
 
     await processTaskLogs();
 
