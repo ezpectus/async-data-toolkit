@@ -73,24 +73,40 @@ async function generateTaskData() {
     await iterateWithTimeout(counter, 2);
 }
 
-async function processTasksAsync() {
+async function processTasksAsync(tasks) {
     console.log("\n=== Async Task Processing ===");
 
     asyncMap(
-        [1, 2, 3, 4],
-        number => number * 2,
+        tasks,
+        task => ({
+            ...task,
+            status: "processing"
+        }),
         results => {
-            console.log("Processed tasks:", results);
+            console.log(
+                "Processing results:",
+                results
+            );
         }
     );
 
-    const promiseResults = await asyncMapPromise(
-        [5, 6, 7],
-        number => number + 1
+    const processedTasks =
+        await asyncMapPromise(
+            tasks,
+            task => ({
+                ...task,
+                completed: true
+            })
+        );
+
+    console.log(
+        "Completed tasks:",
+        processedTasks
     );
 
-    console.log("Promise processing results:", promiseResults);
+    return processedTasks;
 }
+
 
 function processTaskQueue() {
     console.log("\n=== Task Queue ===");
@@ -98,6 +114,7 @@ function processTaskQueue() {
     const queue = new PriorityQueue();
 
     queue.enqueue({
+        id: 1,
         type: "PROCESS_FILE",
         payload: {
             file: "report.csv"
@@ -105,6 +122,7 @@ function processTaskQueue() {
     }, 10);
 
     queue.enqueue({
+        id: 2,
         type: "SEND_NOTIFICATION",
         payload: {
             userId: 15
@@ -112,31 +130,31 @@ function processTaskQueue() {
     }, 5);
 
     queue.enqueue({
+        id: 3,
         type: "GENERATE_REPORT",
         payload: {
             report: "monthly-stats"
         }
     }, 8);
 
-    const highestPriorityTask =
-        queue.peekHighest();
+    const tasks = [];
 
-    console.log(
-        "Highest priority task:",
-        highestPriorityTask
-    );
+    while (queue.peekHighest()) {
+        const task = queue.dequeueHighest();
 
-    const nextTask =
-        queue.dequeueHighest();
+        console.log(
+            "Dequeued task:",
+            task
+        );
 
-    console.log(
-        "Processing task:",
-        nextTask
-    );
+        tasks.push(task.item);
 
-    eventBus.sendNotification(
-        `Completed task type: ${nextTask.item.type}`
-    );
+        eventBus.sendNotification(
+            `Task added to processing: ${task.item.type}`
+        );
+    }
+
+    return tasks;
 }
 
 function runCachedCalculations() {
