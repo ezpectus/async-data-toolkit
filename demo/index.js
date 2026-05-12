@@ -97,18 +97,45 @@ function processTaskQueue() {
 
     const queue = new PriorityQueue();
 
-    queue.enqueue("Process file", 10);
-    queue.enqueue("Send notification", 5);
-    queue.enqueue("Generate report", 8);
+    queue.enqueue({
+        type: "PROCESS_FILE",
+        payload: {
+            file: "report.csv"
+        }
+    }, 10);
 
-    console.log("Highest priority task:", queue.peekHighest());
+    queue.enqueue({
+        type: "SEND_NOTIFICATION",
+        payload: {
+            userId: 15
+        }
+    }, 5);
 
-    const nextTask = queue.dequeueHighest();
+    queue.enqueue({
+        type: "GENERATE_REPORT",
+        payload: {
+            report: "monthly-stats"
+        }
+    }, 8);
 
-    console.log("Processing task:", nextTask);
+    const highestPriorityTask =
+        queue.peekHighest();
+
+    console.log(
+        "Highest priority task:",
+        highestPriorityTask
+    );
+
+    const nextTask =
+        queue.dequeueHighest();
+
+    console.log(
+        "Processing task:",
+        nextTask
+    );
 
     eventBus.sendNotification(
-        `Completed task: ${nextTask.item}`
+        `Completed task type: ${nextTask.item.type}`
     );
 }
 
