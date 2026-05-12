@@ -1,6 +1,6 @@
 # Async Data Toolkit
 
-University coursework project for asynchronous programming and data processing experiments using modern JavaScript and Node.js.
+Modular asynchronous task processing toolkit built with Node.js and modern JavaScript. 
 
 The project was developed as a continuation and integration of multiple laboratory works focused on async programming patterns, modular application structure, stream processing, caching systems, reactive communication, and utility abstractions.
 
@@ -27,6 +27,7 @@ The application includes examples of:
 - Authentication proxy
 - Logging decorator
 
+
 ## Technologies
 
 - JavaScript (ES6 Modules)
@@ -42,6 +43,16 @@ The application includes examples of:
 src/   - core library modules
 demo/  - demo application and examples
 ```
+## Example Workflow
+
+1. Tasks are generated and added into the priority queue
+2. The queue dispatches tasks based on priority
+3. Async processors handle tasks concurrently
+4. Events are emitted during processing
+5. Logs and stream processors track execution
+6. External APIs are accessed through the authentication proxy
+7. Memoization optimizes repeated calculations
+
 ## Run
 ```
 npm install
