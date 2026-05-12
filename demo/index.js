@@ -5,24 +5,27 @@ import {
     roundRobinGenerator,
     counterGenerator
 } from "../src/generators.js";
+
 import { memoize } from "../src/memoize.js";
 import { PriorityQueue } from "../src/priorityQueue.js";
+
 import {
     asyncMap,
     asyncMapPromise
 } from "../src/asyncMap.js";
+
 import { processFileStream } from "../src/streamProcessor.js";
 import { MessageSystem } from "../src/events.js";
 import { AuthProxy } from "../src/authProxy.js";
 import { log } from "../src/logger.js";
 
-const messages = new MessageSystem();
+const eventBus = new MessageSystem();
 
-messages.on("notification", notification => {
+eventBus.on("notification", notification => {
     console.log("Notification:", notification);
 });
 
-messages.on("message", message => {
+eventBus.on("message", message => {
     console.log("Message:", message);
 });
 
@@ -49,8 +52,8 @@ function multiply(a, b) {
 
 const loggedMultiply = log("INFO", multiply);
 
-async function runGeneratorsDemo() {
-    console.log("\n=== Generators Demo ===");
+async function generateTaskData() {
+    console.log("\n=== Task Generators ===");
 
     const fib = fibonacciGenerator();
     await iterateWithTimeout(fib, 2);
@@ -59,24 +62,25 @@ async function runGeneratorsDemo() {
     await iterateWithTimeout(random, 2);
 
     const roundRobin = roundRobinGenerator([
-        "A",
-        "B",
-        "C"
+        "LOW",
+        "MEDIUM",
+        "HIGH"
     ]);
 
     await iterateWithTimeout(roundRobin, 2);
-    const counter = counterGenerator(10);
+
+    const counter = counterGenerator(1000);
     await iterateWithTimeout(counter, 2);
 }
 
-async function runAsyncMapDemo() {
-    console.log("\n=== Async Map Demo ===");
+async function processTasksAsync() {
+    console.log("\n=== Async Task Processing ===");
 
     asyncMap(
         [1, 2, 3, 4],
         number => number * 2,
         results => {
-            console.log("Async map results:", results);
+            console.log("Processed tasks:", results);
         }
     );
 
@@ -85,11 +89,11 @@ async function runAsyncMapDemo() {
         number => number + 1
     );
 
-    console.log("Promise map results:", promiseResults);
+    console.log("Promise processing results:", promiseResults);
 }
 
-function runQueueDemo() {
-    console.log("\n=== Queue Demo ===");
+function processTaskQueue() {
+    console.log("\n=== Task Queue ===");
 
     const queue = new PriorityQueue();
 
@@ -97,30 +101,36 @@ function runQueueDemo() {
     queue.enqueue("Send notification", 5);
     queue.enqueue("Generate report", 8);
 
-    console.log(queue.peekHighest());
+    console.log("Highest priority task:", queue.peekHighest());
 
     const nextTask = queue.dequeueHighest();
+
     console.log("Processing task:", nextTask);
 
-    messages.sendNotification(
+    eventBus.sendNotification(
         `Completed task: ${nextTask.item}`
     );
 }
 
-function runMemoizeDemo() {
-    console.log("\n=== Memoize Demo ===");
+function runCachedCalculations() {
+    console.log("\n=== Cached Calculations ===");
 
     console.log(memoizedSum(2, 3));
     console.log(memoizedSum(2, 3));
-    console.log("Cache hits:", memoizedSum.getHits());
+
+    console.log(
+        "Cache hits:",
+        memoizedSum.getHits()
+    );
 
     memoizedSum.clearCache();
 }
 
-async function runProxyDemo() {
-    console.log("\n=== Proxy Demo ===");
+async function fetchExternalTaskData() {
+    console.log("\n=== External API Integration ===");
 
     const proxy = new AuthProxy("demo-api-key");
+
     const data = await proxy.request(
         "https://jsonplaceholder.typicode.com/todos/1"
     );
@@ -128,31 +138,40 @@ async function runProxyDemo() {
     console.log("API response:", data);
 }
 
-function runLoggerDemo() {
-    console.log("\n=== Logger Demo ===");
+function runSystemLogger() {
+    console.log("\n=== System Logger ===");
 
     console.log(loggedMultiply(4, 5));
 }
 
-async function runStreamDemo() {
-    console.log("\n=== Stream Demo ===");
+async function processTaskLogs() {
+    console.log("\n=== Stream Processing ===");
 
     await processFileStream("./demo/data.txt");
 }
 
-async function startDemoSystem() {
-    messages.sendMessage("System started");
+async function startTaskProcessingSystem() {
+    eventBus.sendMessage(
+        "Task processing system started"
+    );
 
-    runMemoizeDemo();
-    runQueueDemo();
+    runCachedCalculations();
 
-    await runAsyncMapDemo();
-    await runStreamDemo();
-    await runProxyDemo();
+    processTaskQueue();
 
-    runLoggerDemo();
-    await runGeneratorsDemo();
-    messages.sendMessage("System finished");
+    await processTasksAsync();
+
+    await processTaskLogs();
+
+    await fetchExternalTaskData();
+
+    runSystemLogger();
+
+    await generateTaskData();
+
+    eventBus.sendMessage(
+        "Task processing system finished"
+    );
 }
 
-startDemoSystem();
+startTaskProcessingSystem();
